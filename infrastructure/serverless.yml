@@ -1,0 +1,56 @@
+service: url-shortener
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  environment:
+    REDIS_HOST: ${self:custom.redis.host}
+    REDIS_PORT: ${self:custom.redis.port}
+    DYNAMODB_TABLE: ${self:custom.dynamodb.table}
+
+custom:
+  redis:
+    host: ${ssm:/url-shortener/${self:provider.stage}/redis-host}
+    port: 6379
+  dynamodb:
+    table: urls-${self:provider.stage}
+
+functions:
+  createShortUrl:
+    handler: src/handlers/createShortUrl.handler
+    events:
+      - http:
+          path: /urls
+          method: post
+          cors: true
+
+  redirectToLongUrl:
+    handler: src/handlers/redirectToLongUrl.handler
+    events:
+      - http:
+          path: /{shortId}
+          method: get
+
+  getUrlStats:
+    handler: src/handlers/getUrlStats.handler
+    events:
+      - http:
+          path: /urls/{shortId}/stats
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    UrlsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.dynamodb.table}
+        AttributeDefinitions:
+          - AttributeName: shortId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: shortId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
