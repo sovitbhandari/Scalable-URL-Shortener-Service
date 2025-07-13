@@ -1,8 +1,8 @@
-# 🚀 Scalable URL Shortener
+# Scalable URL Shortener
 
 A high-performance URL shortening service built with Node.js, Redis, and AWS Lambda, capable of handling 100K+ requests per second.
 
-## 📋 Tech Stack
+## Tech Stack
 
 - Node.js 18.x
 - AWS Lambda
@@ -19,7 +19,7 @@ curl -X POST https://your-api.execute-api#.amazonaws.com/dev/urls \
   -d '{"longUrl": "https://example.com"}'
 ```
 
-## 🛠 Prerequisites
+## Prerequisites
 
 1. Install required tools:
 ```bash
@@ -42,7 +42,7 @@ npm install -g serverless
 - Create an IAM user with programmatic access
 - Save the Access Key ID and Secret Access Key
 
-## 🚀 Deployment Steps
+## Deployment Steps
 
 ### 1. Clone and Setup
 ```bash
@@ -106,7 +106,7 @@ cd ../..
 serverless deploy
 ```
 
-## 🧪 Testing the Deployment
+## Testing the Deployment
 
 ### 1. Create a Short URL
 ```bash
@@ -133,7 +133,7 @@ curl -I https://your-api.execute-api.us-east-1.amazonaws.com/dev/abc123
 curl https://your-api.execute-api.us-east-1.amazonaws.com/dev/urls/abc123/stats
 ```
 
-## 🔍 Monitoring
+## Monitoring
 
 Access logs and metrics:
 1. Open [AWS CloudWatch](https://console.aws.amazon.com/cloudwatch/)
@@ -143,7 +143,7 @@ Access logs and metrics:
    - DynamoDB operations
    - Redis cache hits/misses
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -169,7 +169,7 @@ serverless logs -f createShortUrl
 serverless logs -f redirectToLongUrl
 ```
 
-## 🧹 Cleanup
+## Cleanup
 
 When you're done testing:
 ```bash
@@ -181,7 +181,7 @@ cd infrastructure/terraform
 terraform destroy -auto-approve
 ```
 
-## 💰 Cost Estimation
+## Cost Estimation
 
 Free tier eligible, but typical monthly costs:
 - Lambda: ~$5
@@ -190,7 +190,7 @@ Free tier eligible, but typical monthly costs:
 - API Gateway: ~$5
 - Total: ~$35/month
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch: `git checkout -b feature/amazing-feature`
